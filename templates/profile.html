@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your Profile</h1>
+{% if user %}
+   <p><strong>Email:</strong>{{user.email}}</p>
+   <p><strong>current Streak:</strong>{{user.streak}} days</p>
+   <p><strong>Last completed:</strong>{{user.last_completed}}</p>
+   <p><strong>Total Marks:</strong>{{user.total_marks}}</p>
+   <p><strong>Percentage:</strong>{{user.percentage}}%</p>
+   <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: {{user.percentage}}% ;" aria-valuenow="{{user.percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+   </div>
+   {% else %}
+      <p>No user logged in.</p>
+    {% endif %}
+    {% endblock %}

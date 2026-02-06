@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero-section text-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Welcome to Daily Skill Challenge</h1>
+        <p class="lead">Sharpen your skills with daily coding challenges. Learn, practice, and track your progress!</p>
+        <div class="mt-4">
+            <a href="/signup" class="btn btn-primary btn-lg me-3"><i class="fas fa-user-plus me-2"></i>Get Started</a>
+            <a href="/login" class="btn btn-outline-light btn-lg"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4 text-center mb-4">
+            <i class="fas fa-code fa-3x text-primary mb-3"></i>
+            <h3>Daily Challenges</h3>
+            <p>Solve coding problems every day to build your skills.</p>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+            <h3>Track Progress</h3>
+            <p>Monitor your improvement with streaks and statistics.</p>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <i class="fas fa-users fa-3x text-info mb-3"></i>
+            <h3>Community</h3>
+            <p>Join a community of learners and share your solutions.</p>
+        </div>
+    </div>
+
+    {% if challenges %}
+    <div class="mt-5">
+        <h2 class="text-center mb-4">Today's Challenges</h2>
+        <div class="row">
+            {% for challenge in challenges %}
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ challenge.category }}</h5>
+                        <p class="card-text">{{ challenge.text }}</p>
+                        <a href="{{ url_for('challenge.workspace', challenge_id=challenge.id) }}" class="btn btn-primary">
+                            <i class="fas fa-play me-1"></i>Start Challenge
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

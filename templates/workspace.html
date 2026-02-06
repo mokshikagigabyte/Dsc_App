@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container fade-in">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('challenge.dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ challenge.category }} Challenge</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-puzzle-piece me-2"></i>{{ challenge.category }} Challenge</h3>
+                    <small class="text-muted">Date: {{ challenge.date.strftime('%B %d, %Y') }}</small>
+                </div>
+                <div class="card-body">
+                    <p class="lead">{{ challenge.text }}</p>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i><strong>Tip:</strong> Complete this daily challenge to maintain your learning streak and earn points!
+                    </div>
+
+                    <form method="POST" action="{{ url_for('challenge.submit', challenge_id=challenge.id) }}">
+                        <div class="mb-3">
+                            <label for="answer" class="form-label"><i class="fas fa-edit me-1"></i>Your Solution</label>
+                            <textarea name="answer" class="form-control" rows="8" placeholder="Write your detailed answer here... Explain your approach and reasoning." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Submit Challenge
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle me-2"></i>Challenge Info
+                </div>
+                <div class="card-body">
+                    <p><strong>Category:</strong> {{ challenge.category }}</p>
+                    <p><strong>Difficulty:</strong> Beginner</p>
+                    <p><strong>Points:</strong> 10</p>
+                    <hr>
+                    <p class="mb-0"><em>Complete this challenge to earn points and maintain your daily streak!</em></p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <i class="fas fa-graduation-cap me-2"></i>Related Tutorials
+                </div>
+                <div class="card-body">
+                    {% if challenge.course and challenge.course.tutorial_link %}
+                    <p>Need help? Watch the tutorial:</p>
+                    <a href="{{ challenge.course.tutorial_link }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-play-circle me-1"></i>Watch Tutorial
+                    </a>
+                    {% else %}
+                    <p class="text-muted">No tutorial available for this challenge.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
